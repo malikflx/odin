@@ -9,21 +9,34 @@
 # Don’t forget to wrap from z to a.
 # Don’t forget to keep the same case.
 
-# Solution
-def caesar_cipher(string)
-  shift = 5
-  converted_string = string.downcase.bytes.map{|a| a - 96 + shift}
-  encrypted_message = converted_string.join
-  decrypted_message = Array(encrypted_message)
-  new_arr = []
-  something = encrypted_message.split('')
-  for i in something
-    char_code = something[i].ord
-    new_arr.push(char_code)
-  end
-  puts new_arr
+# Solution  
+def caesar_cipher(string, shift)
+  for i in 0...string.length do
+    converted_char = string[i].ord
 
-  decrypted_message
+    (a, z) = case converted_char
+             when 65..90 then [65, 90]
+             when 97..122 then [97, 122]
+             else next
+    end
+    if (shift > 0)
+      rotate = 26
+    else 
+      rotate = -26
+    end
+
+    if converted_char.between?(a,z)
+      converted_char += shift
+    else
+      converted_char -= rotate
+    end
+
+    string[i] = converted_char.chr
+  end
 end
 
-puts caesar_cipher("abcdefg")
+puts "Please enter your message: "
+message = gets.chomp
+caesar_cipher(message, 5)
+
+puts "Your secret message is: #{message}."
