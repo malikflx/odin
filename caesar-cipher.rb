@@ -40,3 +40,4 @@ message = gets.chomp
 caesar_cipher(message, 5)
 
 puts "Your secret message is: #{message}."
+puts message
